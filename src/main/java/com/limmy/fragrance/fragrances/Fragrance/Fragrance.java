@@ -16,7 +16,9 @@ public class Fragrance {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String brand;
+    
     private String perfumer;
     private String concentration;
     private LocalDate releaseDate;
