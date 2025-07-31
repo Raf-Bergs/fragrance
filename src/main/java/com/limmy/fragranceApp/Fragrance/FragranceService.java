@@ -18,12 +18,12 @@ public class FragranceService {
     List<FragranceDTO> findAll() {
         return fragranceRepository.findAll()
                 .stream()
-                .map(FragranceMapper::toDto)
+                .map(FragranceMapper::toFragranceDto)
                 .toList();
     }
 
     public Optional<FragranceDTO> getFragranceById(int id) {
         return fragranceRepository.findById(id)
-                .map(FragranceMapper::toDto);
+                .map(FragranceMapper::toFragranceDto);
     }
 }

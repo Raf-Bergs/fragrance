@@ -19,8 +19,7 @@ public class Brand {
     private Integer yearFounded;
 
     private Boolean isNiche;
-
-    @Column(length = 2000)
+    
     private String description;
 
     private String logoUrl;

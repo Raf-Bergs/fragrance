@@ -1,4 +1,7 @@
-package com.limmy.fragranceApp.Fragrance.ScentInformation;
+package com.limmy.fragranceApp.Fragrance.Mappers;
+
+import com.limmy.fragranceApp.Fragrance.ScentInformation.ScentInformation;
+import com.limmy.fragranceApp.Fragrance.ScentInformation.ScentInfromationDTO;
 
 public class ScentInformationMapper {
 

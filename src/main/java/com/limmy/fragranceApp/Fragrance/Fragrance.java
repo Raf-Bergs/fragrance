@@ -20,8 +20,7 @@ public class Fragrance {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
     private String perfumer;
@@ -59,7 +58,7 @@ public class Fragrance {
         return name;
     }
 
-    public String getBrand() {
+    public Brand getBrand() {
         return brand;
     }
 
