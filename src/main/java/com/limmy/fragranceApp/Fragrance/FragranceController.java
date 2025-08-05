@@ -1,9 +1,8 @@
 package com.limmy.fragranceApp.Fragrance;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,5 +25,11 @@ public class FragranceController {
     @GetMapping
     List<FragranceDTO> findAllFragrances() {
         return fragranceService.findAll();
+    }
+
+    @PostMapping
+    public ResponseEntity<Integer> createFragrance(@RequestBody @Valid CreateFragranceDTO createFragranceDTO) {
+        int newFragranceId = fragranceService.create(createFragranceDTO);
+        return ResponseEntity.ok(newFragranceId);
     }
 }

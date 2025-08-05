@@ -16,7 +16,7 @@ public class FragranceMapper {
                 fragrance.getNicheVsDesigner(),
                 fragrance.getDescription(),
                 fragrance.getPictures(),
-                ScentInformationMapper.toDto(fragrance.getScentInformation()),
+                ScentInformationMapper.toScentInformationDTO(fragrance.getScentInformation()),
                 fragrance.getAccords()
         );
     }

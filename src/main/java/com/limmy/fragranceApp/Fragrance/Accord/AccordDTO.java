@@ -1,4 +1,4 @@
 package com.limmy.fragranceApp.Fragrance.Accord;
 
-public record AccordDTO(String name) {
+public record AccordDTO(int id, String name) {
 }

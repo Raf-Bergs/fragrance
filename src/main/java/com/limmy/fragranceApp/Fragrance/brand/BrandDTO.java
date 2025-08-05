@@ -1,8 +1,10 @@
 package com.limmy.fragranceApp.Fragrance.brand;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record BrandDTO(
         int id,
-        String name,
+        @NotBlank String name,
         String country,
         String website,
         Integer yearFounded,

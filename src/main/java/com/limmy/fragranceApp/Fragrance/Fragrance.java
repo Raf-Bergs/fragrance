@@ -25,8 +25,9 @@ public class Fragrance {
 
     private String perfumer;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String concentration;
+    private Concentration concentration;
 
     private LocalDate releaseDate;
     private boolean isRefillable;
@@ -50,6 +51,20 @@ public class Fragrance {
     public Fragrance() {
     }
 
+    public Fragrance(String name, Brand brand, String perfumer, Concentration concentration, LocalDate releaseDate, boolean isRefillable, FragranceType nicheVsDesigner, String description, String pictures, ScentInformation scentInformation, Set<Accord> accords) {
+        this.name = name;
+        this.brand = brand;
+        this.perfumer = perfumer;
+        this.concentration = concentration;
+        this.releaseDate = releaseDate;
+        this.isRefillable = isRefillable;
+        this.nicheVsDesigner = nicheVsDesigner;
+        this.description = description;
+        this.pictures = pictures;
+        this.scentInformation = scentInformation;
+        this.accords = accords;
+    }
+
     public int getId() {
         return id;
     }
@@ -66,7 +81,7 @@ public class Fragrance {
         return perfumer;
     }
 
-    public String getConcentration() {
+    public Concentration getConcentration() {
         return concentration;
     }
 

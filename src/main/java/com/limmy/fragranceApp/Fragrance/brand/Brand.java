@@ -19,12 +19,27 @@ public class Brand {
     private Integer yearFounded;
 
     private Boolean isNiche;
-    
+
     private String description;
 
     private String logoUrl;
 
     public Brand() {
+    }
+
+    public Brand(String name) {
+        this.name = name;
+    }
+
+    public Brand(int id, String name, String country, String website, Integer yearFounded, Boolean isNiche, String description, String logoUrl) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.website = website;
+        this.yearFounded = yearFounded;
+        this.isNiche = isNiche;
+        this.description = description;
+        this.logoUrl = logoUrl;
     }
 
     public int getId() {

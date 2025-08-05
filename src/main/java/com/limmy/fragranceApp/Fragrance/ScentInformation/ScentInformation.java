@@ -40,6 +40,30 @@ public class ScentInformation {
     private Set<Note> baseNotes = new HashSet<>();
 
 
+    public ScentInformation(String season, String timeOfDay, String longevity, String sillage, Fragrance fragrance, Set<Note> topNotes, Set<Note> middleNotes, Set<Note> baseNotes) {
+        this.season = season;
+        this.timeOfDay = timeOfDay;
+        this.longevity = longevity;
+        this.sillage = sillage;
+        this.fragrance = fragrance;
+        this.topNotes = topNotes;
+        this.middleNotes = middleNotes;
+        this.baseNotes = baseNotes;
+    }
+
+    public ScentInformation() {
+    }
+
+    public ScentInformation(String season, String timeOfDay, String longevity, String sillage, Set<Note> topNotes, Set<Note> middleNotes, Set<Note> baseNotes) {
+        this.season = season;
+        this.timeOfDay = timeOfDay;
+        this.longevity = longevity;
+        this.sillage = sillage;
+        this.topNotes = topNotes;
+        this.middleNotes = middleNotes;
+        this.baseNotes = baseNotes;
+    }
+
     public int getId() {
         return id;
     }
