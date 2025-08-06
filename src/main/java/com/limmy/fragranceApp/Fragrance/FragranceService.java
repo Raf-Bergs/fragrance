@@ -16,6 +16,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.limmy.fragranceApp.Fragrance.util.NameNormalizer.normalize;
+
 @Service
 public class FragranceService {
 
@@ -58,7 +60,8 @@ public class FragranceService {
                 .collect(Collectors.toSet());
 
         ScentInformation scentInformation = ScentInformationMapper.toScentInformationEntity(createFragranceDTO.scentInformation(), noteRepository);
-        Fragrance newFragrance = new Fragrance(createFragranceDTO.name(),
+        Fragrance newFragrance = new Fragrance(
+                normalize(createFragranceDTO.name()),
                 brand,
                 createFragranceDTO.perfumer(),
                 createFragranceDTO.concentration(),
