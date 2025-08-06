@@ -1,6 +1,5 @@
 package com.limmy.fragranceApp.Fragrance;
 
-import com.limmy.fragranceApp.Fragrance.Accord.Accord;
 import com.limmy.fragranceApp.Fragrance.ScentInformation.CreateScentInformationDTO;
 import com.limmy.fragranceApp.Fragrance.brand.BrandDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -20,5 +19,5 @@ public record CreateFragranceDTO(
         String description,
         String pictures,
         CreateScentInformationDTO scentInformation,
-        Set<Accord> accords) {
+        Set<String> accordNames) {
 }

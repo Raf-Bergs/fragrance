@@ -1,5 +1,7 @@
 package com.limmy.fragranceApp.Fragrance;
 
+import com.limmy.fragranceApp.Fragrance.Accord.Accord;
+import com.limmy.fragranceApp.Fragrance.Accord.AccordRepository;
 import com.limmy.fragranceApp.Fragrance.Mappers.FragranceMapper;
 import com.limmy.fragranceApp.Fragrance.Mappers.ScentInformationMapper;
 import com.limmy.fragranceApp.Fragrance.Note.NoteRepository;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FragranceService {
@@ -18,11 +22,13 @@ public class FragranceService {
     private final FragranceRepository fragranceRepository;
     private final BrandRepository brandRepository;
     private final NoteRepository noteRepository;
+    private final AccordRepository accordRepository;
 
-    public FragranceService(FragranceRepository fragranceRepository, BrandRepository brandRepository, NoteRepository noteRepository) {
+    public FragranceService(FragranceRepository fragranceRepository, BrandRepository brandRepository, NoteRepository noteRepository, AccordRepository accordRepository) {
         this.fragranceRepository = fragranceRepository;
         this.brandRepository = brandRepository;
         this.noteRepository = noteRepository;
+        this.accordRepository = accordRepository;
     }
 
     List<FragranceDTO> findAll() {
@@ -40,11 +46,16 @@ public class FragranceService {
     @Transactional
     int create(CreateFragranceDTO createFragranceDTO) {
 
-        Brand brand = brandRepository.findByName(createFragranceDTO.brand().name())
+        Brand brand = brandRepository.findByNameIgnoreCase(createFragranceDTO.brand().name())
                 .orElseGet(() -> {
                     Brand newBrand = new Brand(createFragranceDTO.brand().name());
                     return brandRepository.save(newBrand);
                 });
+        Set<Accord> accords = createFragranceDTO.accordNames().stream()
+                .map(name -> accordRepository.findByNameIgnoreCase(name)
+                        .orElseGet(() -> accordRepository.save(new Accord(name)))
+                )
+                .collect(Collectors.toSet());
 
         ScentInformation scentInformation = ScentInformationMapper.toScentInformationEntity(createFragranceDTO.scentInformation(), noteRepository);
         Fragrance newFragrance = new Fragrance(createFragranceDTO.name(),
@@ -57,7 +68,7 @@ public class FragranceService {
                 createFragranceDTO.description(),
                 createFragranceDTO.pictures(),
                 scentInformation,
-                createFragranceDTO.accords());
+                accords);
 
         fragranceRepository.save(newFragrance);
         return newFragrance.getId();
