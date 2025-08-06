@@ -6,8 +6,8 @@ import com.limmy.fragranceApp.Fragrance.ScentInformation.CreateScentInformationD
 import com.limmy.fragranceApp.Fragrance.ScentInformation.ScentInformation;
 import com.limmy.fragranceApp.Fragrance.ScentInformation.ScentInformationDTO;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ScentInformationMapper {
 
@@ -24,20 +24,30 @@ public class ScentInformationMapper {
         );
     }
 
-    public static ScentInformation toScentInformationEntity(CreateScentInformationDTO scentInformationDTO, NoteRepository noteRepository) {
+    public static ScentInformation toScentInformationEntity(CreateScentInformationDTO createScentInformationDTO, NoteRepository noteRepository) {
 
-        Set<Note> topNotes = new HashSet<>(noteRepository.findAllById(scentInformationDTO.topNoteIds()));
-        Set<Note> middleNotes = new HashSet<>(noteRepository.findAllById(scentInformationDTO.middleNoteIds()));
-        Set<Note> baseNotes = new HashSet<>(noteRepository.findAllById(scentInformationDTO.baseNoteIds()));
+        Set<Note> topNotes = resolveNotesByName(createScentInformationDTO.topNoteNames(), noteRepository);
+        Set<Note> middleNotes = resolveNotesByName(createScentInformationDTO.middleNoteNames(), noteRepository);
+        Set<Note> baseNotes = resolveNotesByName(createScentInformationDTO.baseNoteNames(), noteRepository);
 
         return new ScentInformation(
-                scentInformationDTO.season(),
-                scentInformationDTO.timeOfDay(),
-                scentInformationDTO.longevity(),
-                scentInformationDTO.sillage(),
+                createScentInformationDTO.season(),
+                createScentInformationDTO.timeOfDay(),
+                createScentInformationDTO.longevity(),
+                createScentInformationDTO.sillage(),
                 topNotes,
                 middleNotes,
                 baseNotes
         );
+    }
+
+    private static Set<Note> resolveNotesByName(Set<String> noteNames, NoteRepository noteRepository) {
+        if (noteNames == null) return Set.of();
+
+        return noteNames.stream()
+                .map(name -> noteRepository.findByNameIgnoreCase(name)
+                        .orElseGet(() -> noteRepository.save(new Note(name)))
+                )
+                .collect(Collectors.toSet());
     }
 }

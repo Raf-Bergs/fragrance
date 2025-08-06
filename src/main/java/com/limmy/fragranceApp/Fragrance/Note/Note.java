@@ -16,6 +16,10 @@ public class Note {
     public Note() {
     }
 
+    public Note(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }

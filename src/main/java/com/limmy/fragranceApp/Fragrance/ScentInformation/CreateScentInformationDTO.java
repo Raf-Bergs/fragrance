@@ -7,9 +7,9 @@ public record CreateScentInformationDTO(
         String timeOfDay,
         String longevity,
         String sillage,
-        Set<Integer> topNoteIds,
-        Set<Integer> middleNoteIds,
-        Set<Integer> baseNoteIds
+        Set<String> topNoteNames,
+        Set<String> middleNoteNames,
+        Set<String> baseNoteNames
 ) {
 }
 
