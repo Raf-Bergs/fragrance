@@ -1,0 +1,156 @@
+@startuml
+package "DTOs" {
+  class CreateFragranceDTO {
+    - String name
+    - BrandDTO brand
+    - String perfumer
+    - Concentration concentration
+    - LocalDate releaseDate
+    - boolean isRefillable
+    - FragranceType nicheVsDesigner
+    - String description
+    - String pictures
+    - CreateScentInformationDTO scentInformation
+    - Set<String> accordNames
+  }
+  class CreateScentInformationDTO {
+    - String season
+    - String timeOfDay
+    - String longevity
+    - String sillage
+    - Set<String> topNoteNames
+    - Set<String> middleNoteNames
+    - Set<String> baseNoteNames
+  }
+}
+
+package "Entities" {
+  class Fragrance {
+    - int id
+    - String name
+    - Brand brand
+    - String perfumer
+    - Concentration concentration
+    - LocalDate releaseDate
+    - boolean isRefillable
+    - FragranceType nicheVsDesigner
+    - String description
+    - String pictures
+    - ScentInformation scentInformation
+    - Set<Accord> accords
+  }
+  class ScentInformation {
+    - int id
+    - String season
+    - String timeOfDay
+    - String longevity
+    - String sillage
+    - Set<Note> topNotes
+    - Set<Note> middleNotes
+    - Set<Note> baseNotes
+  }
+  class Accord {
+    - int id
+    - String name
+  }
+  class Note {
+    - int id
+    - String name
+  }
+  class Brand {
+    - int id
+    - String name
+    - String country
+    - String website
+    - Integer yearFounded
+    - Boolean isNiche
+    - String description
+    - String logoUrl
+  }
+}
+
+package "Services" {
+  class FragranceService {
+    - FragranceRepository fragranceRepository
+    - BrandRepository brandRepository
+    - NoteRepository noteRepository
+    - AccordRepository accordRepository
+    + int create(CreateFragranceDTO createFragranceDTO)
+  }
+  class AccordService {
+    - AccordRepository accordRepository
+    + List<AccordDTO> getAll()
+    + Optional<Accord> findByNameIgnoreCase(String name)
+  }
+  class NoteService {
+    - NoteRepository noteRepository
+    + List<NoteDTO> getAllNotes()
+    + Optional<Note> findByNameIgnoreCase(String name)
+  }
+  class BrandService {
+    - BrandRepository brandRepository
+    + List<BrandDTO> getAllBrands()
+    + Optional<Brand> findByNameIgnoreCase(String name)
+  }
+}
+
+package "Mappers" {
+  class FragranceMapper {
+    + static FragranceDTO toFragranceDto(Fragrance)
+  }
+  class ScentInformationMapper {
+    + static ScentInformation toScentInformationEntity(CreateScentInformationDTO, NoteRepository)
+  }
+}
+
+package "Repositories" {
+  interface FragranceRepository
+  interface BrandRepository {
+    ~ Optional<Brand> findByNameIgnoreCase(String)
+    + Brand save(Brand brand)
+  }
+  interface AccordRepository {
+    ~ Optional<Accord> findByNameIgnoreCase(String)
+    + Accord save(Accord accord)
+  }
+  interface NoteRepository {
+    ~ Optional<Note> findByNameIgnoreCase(String)
+  }
+  interface ScentInformationRepository
+}
+
+package "Controller" {
+  class FragranceController {
+    - FragranceService fragranceService
+    + ResponseEntity<Integer> createFragrance(CreateFragranceDTO)
+  }
+}
+
+' Relations
+FragranceController --> FragranceService
+FragranceService --> FragranceRepository
+FragranceService --> AccordRepository
+FragranceService --> NoteRepository
+FragranceService --> BrandRepository
+FragranceService --> FragranceMapper
+FragranceService --> ScentInformationMapper
+FragranceService --> CreateFragranceDTO
+
+CreateFragranceDTO --> CreateScentInformationDTO
+Fragrance --> ScentInformation
+Fragrance --> Brand
+Fragrance --> Accord
+ScentInformation --> Note
+ScentInformationMapper --> CreateScentInformationDTO
+ScentInformationMapper --> ScentInformation
+ScentInformationMapper --> NoteRepository
+FragranceMapper --> Fragrance
+
+note right of FragranceService::create
+  The create method in FragranceService:
+  1. Finds or creates a Brand.
+  2. Finds or creates Accords.
+  3. Maps ScentInformation from DTO.
+  4. Creates and saves a new Fragrance.
+end note
+@enduml
