@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("fragrance")
@@ -18,7 +17,7 @@ public class FragranceController {
     }
 
     @GetMapping("/{id}")
-    Optional<FragranceDTO> getFragranceById(@PathVariable int id) {
+    FragranceDTO getFragranceById(@PathVariable int id) {
         return fragranceService.getFragranceById(id);
     }
 

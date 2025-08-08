@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,9 +39,10 @@ public class FragranceService {
                 .toList();
     }
 
-    public Optional<FragranceDTO> getFragranceById(int id) {
+    public FragranceDTO getFragranceById(int id) throws FragranceNotFoundException {
         return fragranceRepository.findById(id)
-                .map(FragranceMapper::toFragranceDto);
+                .map(FragranceMapper::toFragranceDto)
+                .orElseThrow(FragranceNotFoundException::new);
     }
 
     @Transactional
