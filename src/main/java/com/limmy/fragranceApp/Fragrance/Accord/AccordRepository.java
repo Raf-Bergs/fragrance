@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface AccordRepository extends JpaRepository<Accord, Integer> {
     Optional<Accord> findByNameIgnoreCase(String name);
+
+    long countByName(String name);
 }

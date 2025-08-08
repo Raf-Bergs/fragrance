@@ -1,8 +1,7 @@
 package com.limmy.fragranceApp.Fragrance.Accord;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,10 @@ public class AccordController {
     @GetMapping
     public List<AccordDTO> getAll() {
         return accordService.getAll();
+    }
+
+    @PostMapping
+    public int createAccord(@RequestBody @Valid CreateAccordDTO createAccordDTO) {
+        return accordService.createAccord(createAccordDTO);
     }
 }
