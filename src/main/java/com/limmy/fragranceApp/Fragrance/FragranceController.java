@@ -26,6 +26,11 @@ public class FragranceController {
         return fragranceService.findAll();
     }
 
+    @GetMapping("/count")
+    long getCount() {
+        return fragranceService.getCount();
+    }
+
     @PostMapping
     public ResponseEntity<Integer> createFragrance(@RequestBody @Valid CreateFragranceDTO createFragranceDTO) {
         int newFragranceId = fragranceService.create(createFragranceDTO);

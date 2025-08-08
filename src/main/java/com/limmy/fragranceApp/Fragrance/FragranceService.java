@@ -39,6 +39,10 @@ public class FragranceService {
                 .toList();
     }
 
+    long getCount() {
+        return fragranceRepository.count();
+    }
+
     public FragranceDTO getFragranceById(int id) throws FragranceNotFoundException {
         return fragranceRepository.findById(id)
                 .map(FragranceMapper::toFragranceDto)
