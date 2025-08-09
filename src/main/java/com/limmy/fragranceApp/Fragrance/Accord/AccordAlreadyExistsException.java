@@ -1,7 +1,7 @@
 package com.limmy.fragranceApp.Fragrance.Accord;
 
 public class AccordAlreadyExistsException extends RuntimeException {
-    public AccordAlreadyExistsException(String message) {
-        super(message);
+    public AccordAlreadyExistsException() {
+        super("Accord with that name already exists.");
     }
 }

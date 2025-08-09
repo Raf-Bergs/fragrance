@@ -1,8 +1,7 @@
 package com.limmy.fragranceApp.Fragrance.brand;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +17,15 @@ public class BrandController {
     @GetMapping
     public List<Brand> getAllBrands() {
         return brandService.getAllBrands();
+    }
+
+    @GetMapping("/{id}")
+    public BrandDTO getBrandById(@PathVariable int id) {
+        return brandService.getBrandById(id);
+    }
+
+    @PostMapping
+    public int createBrand(@RequestBody @Valid CreateBrandDTO createBrandDTO) {
+        return brandService.createBrand(createBrandDTO);
     }
 }

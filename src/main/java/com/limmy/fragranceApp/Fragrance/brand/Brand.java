@@ -31,8 +31,7 @@ public class Brand {
         this.name = name;
     }
 
-    public Brand(int id, String name, String country, String website, Integer yearFounded, Boolean isNiche, String description, String logoUrl) {
-        this.id = id;
+    public Brand(String name, String country, String website, Integer yearFounded, Boolean isNiche, String description, String logoUrl) {
         this.name = name;
         this.country = country;
         this.website = website;

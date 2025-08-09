@@ -24,7 +24,7 @@ public class AccordService {
 
     public int createAccord(CreateAccordDTO createAccordDTO) throws AccordAlreadyExistsException {
         if (accordRepository.countByName(createAccordDTO.name()) > 0)
-            throw new AccordAlreadyExistsException("Accord with that name already exists.");
+            throw new AccordAlreadyExistsException();
 
         Accord newAccord = new Accord(createAccordDTO.name());
         accordRepository.save(newAccord);
