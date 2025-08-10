@@ -20,7 +20,7 @@ public class BrandService {
         return brandRepository.findAll();
     }
 
-    public BrandDTO getBrandById(int id) {
+    public BrandDTO getBrandById(int id) throws BrandNotFoundException {
         return brandRepository.findById(id)
                 .map(BrandMapper::toBrandDTO)
                 .orElseThrow(BrandNotFoundException::new);

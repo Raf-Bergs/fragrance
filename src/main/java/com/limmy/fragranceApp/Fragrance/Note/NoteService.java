@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.limmy.fragranceApp.Fragrance.util.NameNormalizer.normalize;
+
 @Service
 public class NoteService {
 
@@ -18,5 +20,21 @@ public class NoteService {
         return noteRepository.findAll().stream()
                 .map(NoteMapper::toNoteDto)
                 .toList();
+    }
+
+    public NoteDTO getNoteById(int id) throws NoteNotFoundException {
+        return noteRepository.findById(id)
+                .map(NoteMapper::toNoteDto)
+                .orElseThrow(NoteNotFoundException::new);
+    }
+
+    public int createNote(CreateNoteDTO createNoteDTO) {
+        if (noteRepository.findByNameIgnoreCase(createNoteDTO.name()).isPresent()) {
+            throw new NoteAlreadyExistsException();
+        }
+
+        Note newNote = new Note(normalize(createNoteDTO.name()));
+        noteRepository.save(newNote);
+        return newNote.getId();
     }
 }

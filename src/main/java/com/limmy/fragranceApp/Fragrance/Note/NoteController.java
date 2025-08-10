@@ -1,8 +1,7 @@
 package com.limmy.fragranceApp.Fragrance.Note;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,15 @@ public class NoteController {
     @GetMapping
     public List<NoteDTO> getAllNotes() {
         return noteService.getAllNotes();
+    }
+
+    @GetMapping("/{id}")
+    public NoteDTO getNoteById(@PathVariable int id) {
+        return noteService.getNoteById(id);
+    }
+
+    @PostMapping
+    public int createNote(@Valid @RequestBody CreateNoteDTO createNoteDTO) {
+        return noteService.createNote(createNoteDTO);
     }
 }

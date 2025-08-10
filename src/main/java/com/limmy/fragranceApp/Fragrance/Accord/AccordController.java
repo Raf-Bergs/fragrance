@@ -24,4 +24,9 @@ public class AccordController {
     public int createAccord(@RequestBody @Valid CreateAccordDTO createAccordDTO) {
         return accordService.createAccord(createAccordDTO);
     }
+
+    @GetMapping("/{id}")
+    public AccordDTO getAccordById(@PathVariable int id) {
+        return accordService.getAccordById(id);
+    }
 }
