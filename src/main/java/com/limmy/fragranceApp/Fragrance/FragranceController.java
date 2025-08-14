@@ -36,4 +36,9 @@ public class FragranceController {
         int newFragranceId = fragranceService.create(createFragranceDTO);
         return ResponseEntity.ok(newFragranceId);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteFragranceById(@PathVariable int id) {
+        fragranceService.deleteFragranceById(id);
+    }
 }

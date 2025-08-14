@@ -28,4 +28,9 @@ public class BrandController {
     public int createBrand(@RequestBody @Valid CreateBrandDTO createBrandDTO) {
         return brandService.createBrand(createBrandDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteBrandById(@PathVariable int id) {
+        brandService.deleteBrandById(id);
+    }
 }

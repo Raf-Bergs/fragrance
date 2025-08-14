@@ -42,4 +42,8 @@ public class BrandService {
         brandRepository.save(newBrand);
         return newBrand.getId();
     }
+
+    public void deleteBrandById(int id) {
+        brandRepository.deleteById(id);
+    }
 }

@@ -37,4 +37,8 @@ public class NoteService {
         noteRepository.save(newNote);
         return newNote.getId();
     }
+
+    public void deleteNoteById(int id) {
+        noteRepository.deleteById(id);
+    }
 }

@@ -29,4 +29,9 @@ public class AccordController {
     public AccordDTO getAccordById(@PathVariable int id) {
         return accordService.getAccordById(id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteAccordById(@PathVariable int id) {
+        accordService.deleteAccordById(id);
+    }
 }

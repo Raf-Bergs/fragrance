@@ -80,4 +80,8 @@ public class FragranceService {
         fragranceRepository.save(newFragrance);
         return newFragrance.getId();
     }
+
+    public void deleteFragranceById(int id) {
+        fragranceRepository.deleteById(id);
+    }
 }

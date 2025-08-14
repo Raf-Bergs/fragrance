@@ -39,5 +39,9 @@ public class AccordService {
         return newAccord.getId();
     }
 
+    public void deleteAccordById(int id) {
+        accordRepository.deleteById(id);
+    }
+
 
 }
